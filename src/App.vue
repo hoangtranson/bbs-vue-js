@@ -1,22 +1,31 @@
 <template>
   <div id="app">
     <h1>{{ bbs_page_title }}</h1>
-    <bbs-select v-bind:source="number_list"></bbs-select>
+    <bbs-select v-bind:source="number_list" v-on:data-change="changeNumberList"></bbs-select>
+    <bbs-button v-bind:name="'Add new article'"></bbs-button>
   </div>
 </template>
 
 <script>
 import BbsSelect from './components/select-input';
+import BbsButton from './components/button';
 
 export default {
   name: 'app',
   components: {
-    BbsSelect
+    BbsSelect,
+    BbsButton
   },
   data () {
     return {
       bbs_page_title: 'BBS Article page',
-      number_list: [5,10,15]
+      number_list: [5,10,15],
+      list_number: 5
+    }
+  },
+  methods: {
+    changeNumberList: function(value){
+      this.list_number = value;
     }
   }
 }
