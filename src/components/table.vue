@@ -1,63 +1,51 @@
 <template>
   <div class="table-responsive">
-				<table class="table" id="article-table">
+				<table class="table table-hover" id="article-table">
 					<thead>
 						<tr>
-							<th>Title</th>
-							<th>Author</th>
-							<th>Email</th>
-							<th>Updated date</th>
-							<th>View Count</th>
-							<th>Action</th>
+							<th v-for="col in columns" v-bind:key="col">{{col}}</th>
 						</tr>
 					</thead>
-					<tbody id="bbs-table-body">
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
+					<tbody>
+            <tr class="item" v-for="row in source" v-bind:key="row.id" @click="onView(row)">
+              <td>{{row.title}}</td>
+              <td>{{row.author}}</td>
+              <td>{{row.email}}</td>
+              <td>{{row.updatedDate}}</td>
+              <td>{{row.viewCount}}</td>
             </tr>
 					</tbody>
 				</table>
-				<!-- <div class="pagination">
-					<button id="pagination_prev">Prev</button>
-					<button id="pagination_next">Next</button>
-				</div> -->
 			</div>
 </template>
 
 <script>
+
 export default {
   name: "BbsTable",
   props: {
-    // columns: {
-    //   type: Array,
-    //   required: true
-    // },
-    // source: {
-    //   type: Array,
-    //   required: true
-    // }
+    columns: {
+      type: Array,
+      required: true
+    },
+    source: {
+      type: Array,
+      required: true
+    }
   },
   methods: {
-    onView: function(e) {
+    onView: function(data) {
       // const index = e.target.options.selectedIndex;
-      // this.$emit("data-change", this.source[index]);
-    },
-    onEdit: function(e) {
-      // const index = e.target.options.selectedIndex;
-      // this.$emit("data-change", this.source[index]);
-    },
-    onRemove: function(e) {
-      // const index = e.target.options.selectedIndex;
-      // this.$emit("data-change", this.source[index]);
+      this.$emit("view-data", data);
     }
   }
 };
 </script>
 
 <style lang="scss">
+.table-responsive{
+  .item{
+    cursor: pointer;
+  }
+}
 </style>
