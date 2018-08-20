@@ -6,7 +6,7 @@
       <div class="col">
         <bbs-select v-bind:source="number_list" v-on:data-change="changeNumberList"></bbs-select>
         <bbs-table v-bind:columns="colunms" v-bind:source="dataTable" v-on:view-data="viewData"></bbs-table>
-        <bbs-paging></bbs-paging>
+        <bbs-paging v-on:next="nextPage" v-on:prev="prevPage"></bbs-paging>
       </div>
       <div class="col">
         <article-detail v-bind:source="viewItem"></article-detail>
@@ -48,6 +48,12 @@ export default {
     },
     viewData: function(data) {
       this.viewItem = data;
+    },
+    nextPage: function(e){
+      console.log('next page', e);
+    },
+    prevPage: function(e){
+      console.log('prev page', e);
     }
   },
   computed: {

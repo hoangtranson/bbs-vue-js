@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     onView: function(data) {
-      // const index = e.target.options.selectedIndex;
       this.$emit("view-data", data);
     }
   }

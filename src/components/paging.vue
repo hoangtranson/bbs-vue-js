@@ -1,31 +1,19 @@
 <template>
   <div class="pagination">
-    <button id="pagination_prev">Prev</button>
-    <button id="pagination_next">Next</button>
+    <button id="pagination_prev" @click="onPrev">Prev</button>
+    <button id="pagination_next" @click="onNext">Next</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "BbsPaging",
-  props: {
-    // columns: {
-    //   type: Array,
-    //   required: true
-    // },
-    // source: {
-    //   type: Array,
-    //   required: true
-    // }
-  },
   methods: {
     onPrev: function(e) {
-      // const index = e.target.options.selectedIndex;
-      // this.$emit("data-change", this.source[index]);
+      this.$emit("prev", true);
     },
     onNext: function(e) {
-      // const index = e.target.options.selectedIndex;
-      // this.$emit("data-change", this.source[index]);
+      this.$emit("next", true);
     }
   }
 };
