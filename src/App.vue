@@ -11,7 +11,9 @@
 
       <bbs-modal
         v-if="showModal"
-        v-on:close-modal="closeModal"></bbs-modal>
+        v-bind:source="editedData"
+        v-on:close-modal="closeModal"
+        v-on:add-article="addArticle"></bbs-modal>
     </div>
   </div>
 </template>
@@ -23,7 +25,9 @@ import BbsTable from './components/table';
 import BbsPaging from './components/paging';
 import ArticleDetail from './components/article-detail';
 import BbsModal from './components/modal-create-article';
+
 import Database from './database/index.js';
+import FP from './utils/fp.js';
 
 export default {
   name: 'app',
@@ -40,7 +44,9 @@ export default {
       number_list: [5,10,15],
       row_per_page: 5,
       current_page: 0,
-      showModal: false
+      showModal: false,
+      dataTable: Database.getArticle(),
+      editedData: {}
     }
   },
   methods: {
@@ -48,14 +54,28 @@ export default {
       this.row_per_page = value;
       // re render DOM
     },
-    addArticle: function(e) {
-      console.log('addArticle => ', e);
+    addArticle: function(newArticle) {
+      const articleList = Database.getArticle();
+      const index = articleList.findIndex( item => item.id == newArticle.id);
+      if(index > -1) {
+        articleList[index] = newArticle;
+      } else {
+        const lastArticle = FP.last(articleList);
+        newArticle.id = articleList.length > 0 ? lastArticle.id + 1 : 1;
+        articleList.push(newArticle);
+      }
+      this.dataTable = articleList;
+      Database.saveArticle(this.dataTable);
+
+      this.showModal = false;
     },
-    deleteArticle: function(data) {
-      console.log('deleteArticle => ', data);
+    deleteArticle: function(deletedData) {
+      this.dataTable = Database.getArticle().filter( item => item.id != deletedData.id);
+      Database.saveArticle(this.dataTable);
     },
-    editArticle: function(data) {
-      console.log('editArticle => ', data);
+    editArticle: function(editedData) {
+      this.editedData = {...editedData};
+      this.showModal = true;
     },
     nextPage: function(e){
       console.log('next page', e);
@@ -68,12 +88,6 @@ export default {
     },
     openModal: function(e) {
       this.showModal = true;
-    }
-  },
-  computed: {
-    dataTable: function(){
-      Database.init();
-      return Database.getArticle();
     }
   }
 }

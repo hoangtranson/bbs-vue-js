@@ -39,6 +39,9 @@ const DATABASE =  (() => {
     setItem("articles", jsonToString(data));
     return data;
   };
+
+  init();
+
   return {
     init,
     setItem,

@@ -10,19 +10,19 @@
           <div class="modal-body">
             <md-field>
               <label>Article Title</label>
-              <md-input v-model="title"></md-input>
+              <md-input v-model="source.title"></md-input>
             </md-field>
             <md-field>
               <label>Author</label>
-              <md-input v-model="author"></md-input>
+              <md-input v-model="source.author"></md-input>
             </md-field>
             <md-field>
               <label>Email</label>
-              <md-input v-model="email"></md-input>
+              <md-input v-model="source.email"></md-input>
             </md-field>
             <md-field>
               <label>Content</label>
-              <md-textarea v-model="content"></md-textarea>
+              <md-textarea v-model="source.content"></md-textarea>
             </md-field>
           </div>
 
@@ -41,21 +41,38 @@
 </template>
 
 <script>
+import { formatDate } from '../utils/date.js';
 
 export default {
   name: 'BbsModal',
+  props: {
+    source: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       showModal: false,
-      title: null,
-      author: null,
-      email: null,
-      content: null
+      // title: null,
+      // author: null,
+      // email: null,
+      // content: null
     }
   },
   methods: {
     submitData: function(e) {
-      this.$emit('add-article', true);
+      const data = {
+        id: this.source.id,
+        title: this.source.title,
+        author: this.source.author,
+        email: this.source.email,
+        content: this.source.content,
+        viewCount: this.source.viewCount ? this.source.viewCount ++ : 0,
+        updatedDate: formatDate(new Date())
+      };
+      console.log('data=> ', data);
+      this.$emit('add-article', data);
     }
   }
 }

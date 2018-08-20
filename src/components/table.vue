@@ -53,9 +53,11 @@ export default {
       },
       deleteData () {
         this.$emit("delete-item", this.selected);
+        this.showSnackbar = false;
       },
       editData () {
         this.$emit("edit-item", this.selected);
+        this.showSnackbar = false;
       }
     },
     computed: {
