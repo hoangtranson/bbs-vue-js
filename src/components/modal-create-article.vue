@@ -53,11 +53,7 @@ export default {
   },
   data () {
     return {
-      showModal: false,
-      // title: null,
-      // author: null,
-      // email: null,
-      // content: null
+      showModal: false
     }
   },
   methods: {
@@ -71,7 +67,6 @@ export default {
         viewCount: this.source.viewCount ? this.source.viewCount ++ : 0,
         updatedDate: formatDate(new Date())
       };
-      console.log('data=> ', data);
       this.$emit('add-article', data);
     }
   }

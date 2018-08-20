@@ -10,6 +10,8 @@
         <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
         <md-table-cell md-label="Updated Date" md-sort-by="updatedDate">{{ item.updatedDate }}</md-table-cell>
       </md-table-row>
+      <md-table-pagination>
+      </md-table-pagination>
     </md-table>
 
     <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
@@ -30,50 +32,53 @@
 
 <script>
 export default {
-    name: 'BbsTable',
-    props: {
-      source: {
-        type: Array,
-        required: true
-      }
+  name: "BbsTable",
+  props: {
+    source: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return {
+      selected: [],
+      showSnackbar: false,
+      position: "center",
+      duration: 4000,
+      isInfinity: true
+    };
+  },
+  methods: {
+    onSelect(items) {
+      this.selected = items;
+      this.showSnackbar = true;
     },
-    data () {
-      return {
-        selected: [],
-        showSnackbar: false,
-        position: 'center',
-        duration: 4000,
-        isInfinity: true
-      }
+    deleteData() {
+      this.$emit("delete-item", this.selected);
+      this.showSnackbar = false;
     },
-    methods: {
-      onSelect (items) {
-        this.selected = items;
-        this.showSnackbar = true;
-      },
-      deleteData () {
-        this.$emit("delete-item", this.selected);
-        this.showSnackbar = false;
-      },
-      editData () {
-        this.$emit("edit-item", this.selected);
-        this.showSnackbar = false;
-      }
+    editData() {
+      this.$emit("edit-item", this.selected);
+      this.showSnackbar = false;
     },
-    computed: {
-      selectedArticle: function(){
-        return this.selected.title;
-      }
+    updatePage(e) {
+      console.log("updatePage");
+    }
+  },
+  computed: {
+    selectedArticle: function() {
+      return this.selected.title;
     }
   }
+};
 </script>
 
 <style lang="scss">
-.md-snackbar-content .md-button{
+.md-snackbar-content .md-button {
   margin: -8px -8px -8px 0;
 }
 
-.md-snackbar-content .md-button+.md-button {
-    margin-left: 0;
+.md-snackbar-content .md-button + .md-button {
+  margin-left: 0;
 }
 </style>
