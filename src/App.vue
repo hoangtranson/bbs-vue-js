@@ -1,59 +1,73 @@
 <template>
-  <div id="app" class="container">
-    <h1>{{ bbs_page_title }}</h1>
-    <bbs-button v-bind:name="'Add new article'"></bbs-button>
-    <div class="row">
-      <div class="col">
-        <bbs-select v-bind:source="number_list" v-on:data-change="changeNumberList"></bbs-select>
-        <bbs-table v-bind:columns="colunms" v-bind:source="dataTable" v-on:view-data="viewData"></bbs-table>
-        <bbs-paging v-on:next="nextPage" v-on:prev="prevPage"></bbs-paging>
+  <div class="container">
+    <div class="md-layout md-gutter">
+      <div class="md-layout-item">
+        <bbs-button-dial v-on:add-article="openModal"></bbs-button-dial>
+        <bbs-table
+          v-bind:source="dataTable"
+          v-on:delete-item="deleteArticle"
+          v-on:edit-item="editArticle"></bbs-table>
       </div>
-      <div class="col">
-        <article-detail v-bind:source="viewItem"></article-detail>
-      </div>
+
+      <bbs-modal
+        v-if="showModal"
+        v-on:close-modal="closeModal"></bbs-modal>
     </div>
   </div>
 </template>
 
 <script>
 import BbsSelect from './components/select-input';
-import BbsButton from './components/button';
+import BbsButtonDial from './components/button-dial';
 import BbsTable from './components/table';
 import BbsPaging from './components/paging';
 import ArticleDetail from './components/article-detail';
-
+import BbsModal from './components/modal-create-article';
 import Database from './database/index.js';
 
 export default {
   name: 'app',
   components: {
     BbsSelect,
-    BbsButton,
+    BbsButtonDial,
     BbsTable,
     BbsPaging,
-    ArticleDetail
+    ArticleDetail,
+    BbsModal
   },
   data () {
     return {
-      bbs_page_title: 'BBS Article page',
       number_list: [5,10,15],
-      list_number: 5,
-      colunms: ['Title', 'Author', 'Email', 'Updated date', 'View count'],
-      viewItem: {}
+      row_per_page: 5,
+      current_page: 0,
+      showModal: false
     }
   },
   methods: {
     changeNumberList: function(value) {
-      this.list_number = value;
+      this.row_per_page = value;
+      // re render DOM
     },
-    viewData: function(data) {
-      this.viewItem = data;
+    addArticle: function(e) {
+      console.log('addArticle => ', e);
+    },
+    deleteArticle: function(data) {
+      console.log('deleteArticle => ', data);
+    },
+    editArticle: function(data) {
+      console.log('editArticle => ', data);
     },
     nextPage: function(e){
       console.log('next page', e);
     },
     prevPage: function(e){
       console.log('prev page', e);
+    },
+    closeModal: function(e) {
+      this.showModal = false;
+    },
+    openModal: function(e) {
+      this.showModal = true;
     }
   },
   computed: {
@@ -66,33 +80,16 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
-// @import '../node_modules/@fortawesome/fontawesome-free/';
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+.md-layout-item {
+  height: 40px;
 
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+  &:after {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: md-get-palette-color(red, 200);
+    content: " ";
+  }
 }
 </style>
