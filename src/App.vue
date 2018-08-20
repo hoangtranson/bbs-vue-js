@@ -1,20 +1,23 @@
 <template>
-  <div id="app">
+  <div id="container app">
     <h1>{{ bbs_page_title }}</h1>
     <bbs-select v-bind:source="number_list" v-on:data-change="changeNumberList"></bbs-select>
     <bbs-button v-bind:name="'Add new article'"></bbs-button>
+    <bbs-table></bbs-table>
   </div>
 </template>
 
 <script>
 import BbsSelect from './components/select-input';
 import BbsButton from './components/button';
+import BbsTable from './components/table';
 
 export default {
   name: 'app',
   components: {
     BbsSelect,
-    BbsButton
+    BbsButton,
+    BbsTable
   },
   data () {
     return {
@@ -32,6 +35,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
