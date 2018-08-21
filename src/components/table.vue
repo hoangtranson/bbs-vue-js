@@ -1,6 +1,6 @@
 <template>
   <div>
-    <md-table v-model="dataDisplay" md-card @md-selected="onSelect">
+    <md-table v-model="source" md-card @md-selected="onSelect">
       <md-table-toolbar>
         <h1 class="md-toolbar-section-start">Article List</h1>
       </md-table-toolbar>

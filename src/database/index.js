@@ -1,3 +1,7 @@
+import axios from 'axios';
+
+const API_URL = "http://localhost:3000";
+
 const DATABASE =  (() => {
   const jsonToString = data => JSON.stringify(data);
   const stringToJson = data => JSON.parse(data);
@@ -42,6 +46,11 @@ const DATABASE =  (() => {
 
   init();
 
+  const getAllArticles = () => axios.get(`${API_URL}/articles`);
+  const getArticleById = id => axios.get(`${API_URL}/articles/${id}`);
+  const createArticle = () => axios.post(`${API_URL}/articles`);
+  const updateArticle = id => axios.put(`${API_URL}/articles/${id}`);
+  const deleteArticleById = id => axios.delete(`${API_URL}/articles/${id}`);
   return {
     init,
     setItem,
