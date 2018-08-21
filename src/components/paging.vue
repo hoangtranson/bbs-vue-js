@@ -3,7 +3,7 @@
     <span class="md-table-pagination-label">{{ lable }}</span>
 
     <md-field>
-      <md-select v-model="rowPerPage" md-dense md-class="md-pagination-select" v-on:md-selected="setRowPerPage">
+      <md-select v-model="rowNum" md-dense md-class="md-pagination-select" v-on:md-selected="setRowPerPage">
         <md-option v-for="number in listOptions" :key="number" :value="number">{{ number }}</md-option>
       </md-select>
     </md-field>
@@ -25,16 +25,24 @@
     name: 'TablePagination',
     data: () => {
       return {
-        rowPerPage: 10,
-        currentPage: 1
+        currentPage: this.pageNumber ? this.pageNumber : 1,
+        rowNum: this.rowPerPage ? this.rowPerPage : 5
       }
     },
     props: {
       listOptions: {
         type: Array,
-        default: () => [10, 25, 50, 100]
+        default: () => [5, 10, 15, 20]
       },
       totalPage : {
+        type: Number,
+        required: true
+      },
+      pageNumber : {
+        type: Number,
+        required: true
+      },
+      rowPerPage : {
         type: Number,
         required: true
       },

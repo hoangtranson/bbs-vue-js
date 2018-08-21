@@ -13,7 +13,9 @@
     </md-table>
 
     <table-pagination
-      v-bind:total-page="8"
+      v-bind:totalPage="8"
+      v-bind:rowPerPage="rowPerPage"
+      v-bind:pageNumber="1"
       v-on:updateRow="setRowPerPage"
       v-on:goPrev="goPrevPage"
       v-on:goNext="goNextPage">
@@ -54,7 +56,8 @@ export default {
       showSnackbar: false,
       position: "center",
       duration: 4000,
-      isInfinity: true
+      isInfinity: true,
+      rowPerPage: 10
     };
   },
   methods: {
@@ -70,8 +73,9 @@ export default {
       this.$emit("edit-item", this.selected);
       this.showSnackbar = false;
     },
-    setRowPerPage(e) {
-      console.log("setRowPerPage", e);
+    setRowPerPage(rowNum) {
+      this.rowPerPage = rowNum;
+      console.log("setRowPerPage", this.rowPerPage);
     },
     goPrevPage() {
       console.log("goPrevPage");
