@@ -19,26 +19,11 @@
 </template>
 
 <script>
-import BbsSelect from './components/select-input';
-import BbsButtonDial from './components/button-dial';
-import BbsTable from './components/table';
-import BbsPaging from './components/paging';
-import ArticleDetail from './components/article-detail';
-import BbsModal from './components/modal-create-article';
-
 import Database from './database/index.js';
 import FP from './utils/fp.js';
 
 export default {
   name: 'app',
-  components: {
-    BbsSelect,
-    BbsButtonDial,
-    BbsTable,
-    BbsPaging,
-    ArticleDetail,
-    BbsModal
-  },
   data () {
     return {
       number_list: [5,10,15],

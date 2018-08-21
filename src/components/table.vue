@@ -10,9 +10,14 @@
         <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
         <md-table-cell md-label="Updated Date" md-sort-by="updatedDate">{{ item.updatedDate }}</md-table-cell>
       </md-table-row>
-      <md-table-pagination>
-      </md-table-pagination>
     </md-table>
+
+    <table-pagination
+      v-bind:total-page="8"
+      v-on:updateRow="setRowPerPage"
+      v-on:goPrev="goPrevPage"
+      v-on:goNext="goNextPage">
+    </table-pagination>
 
     <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
       <span>
@@ -37,7 +42,11 @@ export default {
     source: {
       type: Array,
       required: true
-    }
+    },
+    mdPage: {
+      type: Number,
+      default: 1
+    },
   },
   data() {
     return {
@@ -61,8 +70,14 @@ export default {
       this.$emit("edit-item", this.selected);
       this.showSnackbar = false;
     },
-    updatePage(e) {
-      console.log("updatePage");
+    setRowPerPage(e) {
+      console.log("setRowPerPage", e);
+    },
+    goPrevPage() {
+      console.log("goPrevPage");
+    },
+    goNextPage() {
+      console.log("goNextPage");
     }
   },
   computed: {
