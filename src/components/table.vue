@@ -79,15 +79,13 @@ export default {
     },
     setRowPerPage(rowNum) {
       this.rowPerPage = rowNum;
-      console.log("setRowPerPage", this.rowPerPage);
+      this.pageNumber = 1;
     },
     goPrevPage(page) {
       this.pageNumber = page;
-      console.log("goPrevPage");
     },
     goNextPage(page) {
       this.pageNumber = page;
-      console.log("goNextPage");
     }
   },
   computed: {
@@ -96,7 +94,6 @@ export default {
     },
     totalPage: function(){
       const chunkData = chunk(this.source, this.rowPerPage);
-      console.log('totalPage=>', chunkData);
       return chunkData.length;
     },
     dataDisplay: function(){
