@@ -57,11 +57,11 @@
       },
       goToPrev: function() {
         this.currentPage --;
-        this.$emit('goPrev');
+        this.$emit('goPrev', this.currentPage);
       },
       goToNext: function() {
         this.currentPage ++;
-        this.$emit('goNext');
+        this.$emit('goNext', this.currentPage);
       }
     }
   }

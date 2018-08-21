@@ -1,6 +1,6 @@
 <template>
   <div>
-    <md-table v-model="source" md-card @md-selected="onSelect">
+    <md-table v-model="dataDisplay" md-card @md-selected="onSelect">
       <md-table-toolbar>
         <h1 class="md-toolbar-section-start">Article List</h1>
       </md-table-toolbar>
@@ -13,9 +13,9 @@
     </md-table>
 
     <table-pagination
-      v-bind:totalPage="8"
+      v-bind:totalPage="totalPage"
       v-bind:rowPerPage="rowPerPage"
-      v-bind:pageNumber="1"
+      v-bind:pageNumber="pageNumber"
       v-on:updateRow="setRowPerPage"
       v-on:goPrev="goPrevPage"
       v-on:goNext="goNextPage">
@@ -38,6 +38,9 @@
 </template>
 
 <script>
+
+import chunk from '../utils/chunk.js';
+
 export default {
   name: "BbsTable",
   props: {
@@ -57,7 +60,8 @@ export default {
       position: "center",
       duration: 4000,
       isInfinity: true,
-      rowPerPage: 10
+      rowPerPage: 5,
+      pageNumber: 1
     };
   },
   methods: {
@@ -77,16 +81,27 @@ export default {
       this.rowPerPage = rowNum;
       console.log("setRowPerPage", this.rowPerPage);
     },
-    goPrevPage() {
+    goPrevPage(page) {
+      this.pageNumber = page;
       console.log("goPrevPage");
     },
-    goNextPage() {
+    goNextPage(page) {
+      this.pageNumber = page;
       console.log("goNextPage");
     }
   },
   computed: {
     selectedArticle: function() {
       return this.selected.title;
+    },
+    totalPage: function(){
+      const chunkData = chunk(this.source, this.rowPerPage);
+      console.log('totalPage=>', chunkData);
+      return chunkData.length;
+    },
+    dataDisplay: function(){
+      const chunkData = chunk(this.source, this.rowPerPage);
+      return chunkData[this.pageNumber - 1];
     }
   }
 };

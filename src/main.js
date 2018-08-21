@@ -1,10 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-// import BbsSelect from './components/select-input';
 import BbsButtonDial from './components/button-dial';
 import BbsTable from './components/table';
-// import ArticleDetail from './components/article-detail';
 import BbsModal from './components/modal-create-article';
 import TablePagination from './components/paging';
 
@@ -22,10 +20,8 @@ import 'vue-material/dist/theme/default.css';
 
 Vue.use(VueMaterial);
 
-// Vue.component(BbsSelect.name, BbsSelect);
 Vue.component(BbsButtonDial.name, BbsButtonDial);
 Vue.component(BbsTable.name, BbsTable);
-// Vue.component(ArticleDetail.name, ArticleDetail);
 Vue.component(BbsModal.name, BbsModal);
 Vue.component(TablePagination.name, TablePagination);
 
