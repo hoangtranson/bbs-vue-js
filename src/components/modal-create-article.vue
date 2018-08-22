@@ -152,6 +152,10 @@ export default {
   float: right;
 }
 
+.modal-footer{
+  display: flex;
+  justify-content: flex-end;
+}
 /*
  * The following styles are auto-applied to elements with
  * transition="modal" when their visibility is toggled
