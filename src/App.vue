@@ -68,6 +68,7 @@ export default {
     openAddNewArticleModal: function(e) {
       this.showModal = true;
       this.modalMode = "NEW";
+      this.editedData = {};
     }
   },
   computed: {
