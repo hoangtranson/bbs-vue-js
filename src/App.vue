@@ -6,7 +6,8 @@
         <bbs-table
           v-bind:source="articleList"
           v-on:delete-item="deleteArticle"
-          v-on:edit-item="openEditArticleModal"></bbs-table>
+          v-on:edit-item="openEditArticleModal"
+          v-on:view-item="goToPage"></bbs-table>
       </div>
 
       <bbs-modal
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'app',
@@ -67,7 +68,17 @@ export default {
       this.showModal = true;
       this.modalMode = "NEW";
       this.editedData = {};
-    }
+    },
+    goToPage: function(viewData) {
+      this.updateArticleDetailId(viewData.id);
+      viewData.viewCount += 1;
+      this.$store.dispatch('UPDATE_AN_ARTICLE', viewData).then( res => {
+        window.location.href = 'http://localhost:8081/detail';
+      })
+    },
+    ...mapActions({
+      updateArticleDetailId: 'SET_VIEW_ARTICLE'
+    })
   },
   computed: {
     ...mapGetters([

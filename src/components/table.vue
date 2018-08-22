@@ -8,6 +8,7 @@
         <md-table-cell md-label="Title" md-sort-by="title">{{ item.title }}</md-table-cell>
         <md-table-cell md-label="Author" md-sort-by="author">{{ item.author }}</md-table-cell>
         <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
+        <md-table-cell md-label="View" md-sort-by="view">{{ item.viewCount }}</md-table-cell>
         <md-table-cell md-label="Updated Date" md-sort-by="updatedDate">{{ item.updatedDate }}</md-table-cell>
       </md-table-row>
     </md-table>
@@ -25,6 +26,9 @@
       <div>
         <md-button class="md-icon-button md-primary" @click="editData">
           <font-awesome-icon icon="pen"/>
+        </md-button>
+        <md-button class="md-icon-button md-primary" @click="viewData">
+          <font-awesome-icon icon="eye"/>
         </md-button>
         <md-button class="md-icon-button md-primary" @click="deleteData">
           <font-awesome-icon icon="trash"/>
@@ -76,6 +80,10 @@ export default {
     },
     editData() {
       this.$emit("edit-item", this.selected);
+      this.showSnackbar = false;
+    },
+    viewData() {
+      this.$emit("view-item", this.selected);
       this.showSnackbar = false;
     },
     setRowPerPage(rowNum) {
