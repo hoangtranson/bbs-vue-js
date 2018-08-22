@@ -21,8 +21,6 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import FP from './utils/fp.js';
-
 export default {
   name: 'app',
   data () {
