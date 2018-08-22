@@ -67,7 +67,7 @@ export default {
         viewCount: this.source.viewCount ? this.source.viewCount ++ : 0,
         updatedDate: formatDate(new Date())
       };
-      this.$emit('add-article', data);
+      this.$emit('submit-article', data);
     }
   }
 }

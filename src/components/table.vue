@@ -1,6 +1,6 @@
 <template>
   <div>
-    <md-table v-model="source" md-card @md-selected="onSelect">
+    <md-table v-model="dataDisplay" md-card @md-selected="onSelect">
       <md-table-toolbar>
         <h1 class="md-toolbar-section-start">Article List</h1>
       </md-table-toolbar>
@@ -22,16 +22,15 @@
     </table-pagination>
 
     <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
-      <span>
-        Do you like to
-        <md-button class="md-icon-button md-primary" @click="deleteData">
-          <font-awesome-icon icon="trash"/>
-        </md-button>
+      <div>
         <md-button class="md-icon-button md-primary" @click="editData">
           <font-awesome-icon icon="pen"/>
         </md-button>
-        {{selectedArticle}}
-      </span>
+        <md-button class="md-icon-button md-primary" @click="deleteData">
+          <font-awesome-icon icon="trash"/>
+        </md-button>
+        <span class="action-item-title">{{selectedArticle}}</span>
+      </div>
       <md-button class="md-primary" @click="showSnackbar = false">Close</md-button>
     </md-snackbar>
   </div>
@@ -97,7 +96,13 @@ export default {
       return chunkData.length;
     },
     dataDisplay: function(){
+      if(!this.source) {
+        return [];
+      }
       const chunkData = chunk(this.source, this.rowPerPage);
+      if(this.pageNumber > 1 && chunkData.length < this.pageNumber) {
+        this.pageNumber -- ;
+      }
       return chunkData[this.pageNumber - 1];
     }
   }
@@ -111,5 +116,11 @@ export default {
 
 .md-snackbar-content .md-button + .md-button {
   margin-left: 0;
+}
+
+.action-item-title{
+  color: #ff5252;
+  line-height: 24px;
+  text-transform: uppercase;
 }
 </style>

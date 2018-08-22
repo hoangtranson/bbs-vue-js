@@ -4,45 +4,54 @@ const API_URL = "http://localhost:3000";
 
 export default {
   state: {
-    articleList: [],
-    lastId: 2
+    articleList: []
   },
   actions: {
     LOAD_ARTICLE_LIST: function ({ commit }) {
       axios.get(`${API_URL}/articles`).then((response) => {
         commit('SET_ARTICLE_LIST', { list: response.data });
-        commit('SET_ID', { list: response.data })
       });
     },
-    getArticleById({commit}, id){
-      // axios.get(`${API_URL}/articles/${id}`)
+    LOAD_AN_ARTICLE: function({commit}, id) {
+      axios.get(`${API_URL}/articles/${id}`);
     },
     POST_NEW_ARTICLE: function({commit}, data){
       axios.post(`${API_URL}/articles`, data).then((response) => {
         commit('ADD_AN_ARTICLE', { item: data });
-        // commit('SET_ID', { list: response.data })
       });
     },
-    updateArticle({commit}, data){
-      // axios.put(`${API_URL}/articles/${data.id}`, data)
+    UPDATE_AN_ARTICLE: function({commit}, data) {
+      axios.put(`${API_URL}/articles/${data.id}`, data).then((response) => {
+        commit('ADD_AN_ARTICLE', { item: data });
+      });
     },
-    deleteArticleById({commit}, id){
-      // axios.delete(`${API_URL}/articles/${id}`)
+    DELETE_AN_ARTICLE: function({commit}, id) {
+      axios.delete(`${API_URL}/articles/${id}`).then((response) => {
+        commit('REMOVE_ARTICLE_LIST', id);
+      });
     }
   },
   mutations: {
     SET_ARTICLE_LIST: (state, { list }) => {
-      state.articleList = list;
+      state.articleList = JSON.parse(JSON.stringify(list));
     },
     ADD_AN_ARTICLE: (state, { item }) => {
-      // state.articleList = list;
-      console.log('ADD_AN_ARTICLE=> ', item);
+      state.articleList = {
+        ...state.articleList,
+        [item.id]: item
+      }
     },
-    SET_ID: (state, { list }) => {
-      const idList = list.map( item => item.id);
-      state.lastId = Math.max(...idList);
+    REMOVE_ARTICLE_LIST: (state, id) => {
+      state.articleList = state.articleList.filter( item => item.id != id);
     }
   },
   getters: {
+    articleList: (state, getters, rootState) => {
+      return state.articleList;
+    },
+    lastId : (state, getters, rootState) => {
+      const idList = getters.articleList.map( item => item.id);
+      return Math.max(...idList);
+    }
   }
 }

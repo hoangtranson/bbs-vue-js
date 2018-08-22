@@ -63,6 +63,11 @@
         this.currentPage ++;
         this.$emit('goNext', this.currentPage);
       }
+    },
+    watch: {
+      pageNumber: function (val) {
+        this.currentPage = val;
+      }
     }
   }
 </script>
