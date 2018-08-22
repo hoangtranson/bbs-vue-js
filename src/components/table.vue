@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="dataDisplay">
     <md-table v-model="dataDisplay" md-card @md-selected="onSelect">
       <md-table-toolbar>
         <h1 class="md-toolbar-section-start">Article List</h1>
@@ -44,7 +44,7 @@ export default {
   name: "BbsTable",
   props: {
     source: {
-      type: Array,
+      type: [Array, Object],
       required: true
     },
     mdPage: {
@@ -65,7 +65,9 @@ export default {
   },
   methods: {
     onSelect(items) {
-      this.selected = items;
+      if(items){
+        this.selected = items;
+      }
       this.showSnackbar = true;
     },
     deleteData() {
@@ -89,7 +91,7 @@ export default {
   },
   computed: {
     selectedArticle: function() {
-      return this.selected.title;
+      return this.selected ? this.selected.title : '';
     },
     totalPage: function(){
       const chunkData = chunk(this.source, this.rowPerPage);

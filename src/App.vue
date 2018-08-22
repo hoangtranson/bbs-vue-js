@@ -34,20 +34,20 @@ export default {
   },
   methods: {
     submitArticle: function(newArticle) {
+      this.editedData = {};
+
       const MODE = {
         "NEW": (article) => {
           article.id = this.lastId + 1;
           this.$store.dispatch('POST_NEW_ARTICLE', article)
           .then( res => {
             this.showModal = false;
-            this.editedData = {};
           });
         },
         "EDIT": (article) => {
           this.$store.dispatch('UPDATE_AN_ARTICLE', article)
           .then( res => {
             this.showModal = false;
-            this.editedData = {};
           });
         }
       }
@@ -76,7 +76,7 @@ export default {
       'lastId'
     ])
   },
-  mounted () {
+  created () {
     this.$store.dispatch('LOAD_ARTICLE_LIST');
   },
 }

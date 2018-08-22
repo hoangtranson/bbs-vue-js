@@ -36,10 +36,16 @@ export default {
       state.articleList = JSON.parse(JSON.stringify(list));
     },
     ADD_AN_ARTICLE: (state, { item }) => {
-      state.articleList = {
-        ...state.articleList,
-        [item.id]: item
+      const newData = [...state.articleList];
+      const index = newData.findIndex( _i => _i.id == item.id);
+
+      if(index > -1) {
+        newData[index] = item;
+      } else {
+        newData.push(item);
       }
+
+      state.articleList = newData;
     },
     REMOVE_ARTICLE_LIST: (state, id) => {
       state.articleList = state.articleList.filter( item => item.id != id);

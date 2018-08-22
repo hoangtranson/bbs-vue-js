@@ -19,74 +19,11 @@
       "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
     },
     {
-      "id": 7,
-      "title": "hoang",
-      "author": "asd",
-      "email": "asd",
-      "content": "asdasd",
-      "viewCount": 0,
-      "updatedDate": "22/08/2018"
-    },
-    {
-      "id": 8,
-      "title": "aaa",
-      "author": "aa",
-      "email": "aaa",
-      "content": "aaa",
-      "viewCount": 0,
-      "updatedDate": "21/08/2018"
-    },
-    {
-      "id": 13,
-      "title": "hoang 123123123123",
-      "author": "as",
-      "email": "asd",
-      "content": "asd",
-      "viewCount": 0,
-      "updatedDate": "21/08/2018"
-    },
-    {
-      "id": 14,
-      "title": "aaa",
-      "author": "aaa",
-      "email": "aaa",
-      "content": "aaa",
-      "viewCount": 0,
-      "updatedDate": "22/08/2018"
-    },
-    {
-      "id": 15,
-      "title": "asd",
-      "author": "asd",
-      "email": "asd",
-      "content": "asd",
-      "viewCount": 0,
-      "updatedDate": "22/08/2018"
-    },
-    {
-      "id": 16,
-      "title": "ad",
-      "author": "sad",
-      "email": "asd",
-      "content": "asd",
-      "viewCount": 0,
-      "updatedDate": "22/08/2018"
-    },
-    {
-      "id": 17,
-      "title": "asd",
-      "author": "asd",
-      "email": "asd",
-      "content": "asd",
-      "viewCount": 0,
-      "updatedDate": "22/08/2018"
-    },
-    {
-      "id": 18,
-      "title": "1",
-      "author": "1",
-      "email": "1",
-      "content": "1",
+      "id": 3,
+      "title": "a man name ove",
+      "author": "hoangtran",
+      "email": "hoangtranson@gmail.com",
+      "content": "this is ...",
       "viewCount": 0,
       "updatedDate": "22/08/2018"
     }
