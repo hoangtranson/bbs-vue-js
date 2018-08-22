@@ -22,7 +22,7 @@
       v-on:goNext="goNextPage">
     </table-pagination>
 
-    <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
+    <md-snackbar :md-position="'center'" :md-duration="5000" :md-active.sync="showSnackbar" md-persistent>
       <div>
         <md-button class="md-icon-button md-primary" @click="editData">
           <font-awesome-icon icon="pen"/>
@@ -60,9 +60,6 @@ export default {
     return {
       selected: [],
       showSnackbar: false,
-      position: "center",
-      duration: 4000,
-      isInfinity: true,
       rowPerPage: 5,
       pageNumber: 1
     };

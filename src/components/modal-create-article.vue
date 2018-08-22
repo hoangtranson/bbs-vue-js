@@ -8,21 +8,25 @@
           </div>
 
           <div class="modal-body">
-            <md-field>
+            <md-field v-bind:class="{ 'md-invalid': errors.title }">
               <label>Article Title</label>
               <md-input v-model="source.title"></md-input>
+              <span class="md-error">{{errors.title}}</span>
             </md-field>
-            <md-field>
+            <md-field v-bind:class="{ 'md-invalid': errors.author }">
               <label>Author</label>
               <md-input v-model="source.author"></md-input>
+              <span class="md-error">{{errors.author}}</span>
             </md-field>
-            <md-field>
+            <md-field v-bind:class="{ 'md-invalid': errors.email }">
               <label>Email</label>
               <md-input v-model="source.email"></md-input>
+              <span class="md-error">{{errors.email}}</span>
             </md-field>
-            <md-field>
+            <md-field v-bind:class="{ 'md-invalid': errors.content }">
               <label>Content</label>
               <md-textarea v-model="source.content"></md-textarea>
+              <span class="md-error">{{errors.content}}</span>
             </md-field>
           </div>
 
@@ -53,21 +57,54 @@ export default {
   },
   data () {
     return {
-      showModal: false
+      showModal: false,
+      errors: {}
     }
   },
   methods: {
     submitData: function(e) {
-      const data = {
-        id: this.source.id,
-        title: this.source.title,
-        author: this.source.author,
-        email: this.source.email,
-        content: this.source.content,
-        viewCount: this.source.viewCount ? this.source.viewCount ++ : 0,
-        updatedDate: formatDate(new Date())
-      };
-      this.$emit('submit-article', data);
+      if(this.isFormValid(this.source)){
+        const data = {
+          id: this.source.id,
+          title: this.source.title,
+          author: this.source.author,
+          email: this.source.email,
+          content: this.source.content,
+          viewCount: this.source.viewCount ? this.source.viewCount ++ : 0,
+          updatedDate: formatDate(new Date())
+        };
+        this.$emit('submit-article', data);
+      }
+    },
+    isFormValid: function({title, author, email, content}) {
+      this.errors = {};
+      if(!title){
+        this.errors['title'] = 'Title required';
+      }
+
+      if(!author){
+        this.errors['author'] = 'Author required';
+      }
+
+      if(!email){
+        this.errors['email'] = 'Email required';
+      } else if (!this.validEmail(email)) {
+        this.errors['email'] = 'Valid email required';
+      }
+
+      if(!content){
+        this.errors['content'] = 'Content required';
+      }
+
+      if (this.errors.title || this.errors.author || this.errors.email || this.errors.content) {
+        return false;
+      }
+
+      return true;
+    },
+    validEmail: function (email) {
+      const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return emailPattern.test(email);
     }
   }
 }

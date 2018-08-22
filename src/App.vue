@@ -28,13 +28,13 @@ export default {
     return {
       showModal: false,
       editedData: {},
-      modalMode: "NEW"
+      modalMode: "NEW",
+      showSnackbar: false
     }
   },
   methods: {
     submitArticle: function(newArticle) {
       this.editedData = {};
-
       const MODE = {
         "NEW": (article) => {
           article.id = this.lastId + 1;
@@ -50,7 +50,6 @@ export default {
           });
         }
       }
-
       MODE[this.modalMode](newArticle);
     },
     deleteArticle: function(deletedData) {
