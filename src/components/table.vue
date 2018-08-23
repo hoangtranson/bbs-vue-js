@@ -4,6 +4,11 @@
       <md-table-toolbar>
         <h1 class="md-toolbar-section-start">Article List</h1>
       </md-table-toolbar>
+
+      <md-table-empty-state md-label="No article found">
+        <md-button class="md-primary md-raised">Create New Article</md-button>
+      </md-table-empty-state>
+
       <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="single">
         <md-table-cell md-label="Title" md-sort-by="title">{{ item.title }}</md-table-cell>
         <md-table-cell md-label="Author" md-sort-by="author">{{ item.author }}</md-table-cell>
@@ -110,7 +115,8 @@ export default {
       if(this.pageNumber > 1 && chunkData.length < this.pageNumber) {
         this.pageNumber -- ;
       }
-      return chunkData[this.pageNumber - 1];
+      return chunkData[this.pageNumber - 1] ? chunkData[this.pageNumber - 1] : [];
+      // return [];
     }
   }
 };
