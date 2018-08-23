@@ -45,4 +45,4 @@ const app = new Vue({
 
 window.addEventListener('popstate', () => {
   app.currentRoute = window.location.pathname
-})
+});

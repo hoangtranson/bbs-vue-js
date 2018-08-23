@@ -16,6 +16,13 @@
         v-bind:source="editedData"
         v-on:close-modal="closeModal"
         v-on:submit-article="submitArticle"></bbs-modal>
+        <md-dialog-confirm
+          :md-active="isServerErr"
+          md-title="Server Error"
+          :md-content="serverErrMessage"
+          md-confirm-text="OK"
+          @md-cancel="closeErrModal"
+          @md-confirm="closeErrModal" />
     </div>
   </div>
 </template>
@@ -76,14 +83,20 @@ export default {
         window.location.href = 'http://localhost:8081/detail';
       })
     },
+    closeErrModal: function(){
+      this.hideErrModal(false);
+    },
     ...mapActions({
-      updateArticleDetailId: 'SET_VIEW_ARTICLE'
+      updateArticleDetailId: 'SET_VIEW_ARTICLE',
+      hideErrModal: 'SET_HIDE_ERR'
     })
   },
   computed: {
     ...mapGetters([
       'articleList',
-      'lastId'
+      'lastId',
+      'isServerErr',
+      'serverErrMessage'
     ])
   },
   created () {
