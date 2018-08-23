@@ -1,14 +1,8 @@
 <template>
   <md-speed-dial :class="topPosition" md-direction="bottom">
-    <md-speed-dial-target>
+    <md-speed-dial-target @click="addArticle">
       <font-awesome-icon icon="plus"/>
     </md-speed-dial-target>
-
-    <md-speed-dial-content>
-      <md-button class="md-icon-button" @click="addArticle">
-        <font-awesome-icon icon="plus"/>
-      </md-button>
-    </md-speed-dial-content>
   </md-speed-dial>
 </template>
 
@@ -37,5 +31,9 @@ export default {
 
 .md-button.md-theme-default.md-fab:not([disabled]){
   color: #fff;
+}
+
+.md-speed-dial.md-top-left, .md-speed-dial.md-top-right{
+  top: 5px;
 }
 </style>

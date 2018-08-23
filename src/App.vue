@@ -7,7 +7,8 @@
           v-bind:source="articleList"
           v-on:delete-item="deleteArticle"
           v-on:edit-item="openEditArticleModal"
-          v-on:view-item="goToPage"></bbs-table>
+          v-on:view-item="goToPage"
+          v-on:add-article="openAddNewArticleModal"></bbs-table>
       </div>
 
       <bbs-modal

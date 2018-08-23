@@ -6,7 +6,7 @@
       </md-table-toolbar>
 
       <md-table-empty-state md-label="No article found">
-        <md-button class="md-primary md-raised">Create New Article</md-button>
+        <md-button class="md-primary md-raised" @click="$emit('add-article', true)">Create New Article</md-button>
       </md-table-empty-state>
 
       <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="single">
