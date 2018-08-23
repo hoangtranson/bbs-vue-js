@@ -28,13 +28,11 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'article-detail',
-  created () {
-    console.log('view id', this.viewId);
-    this.$store.dispatch('LOAD_AN_ARTICLE', this.viewId);
+  mounted () {
+    this.$store.dispatch('LOAD_AN_ARTICLE', this.$route.params.id);
   },
   computed: {
     ...mapGetters([
-      'viewId',
       'detailArticle'
     ])
   },

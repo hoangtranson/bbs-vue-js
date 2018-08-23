@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 import BbsButtonDial from './components/button-dial';
 import BbsTable from './components/table';
@@ -15,34 +16,31 @@ import 'vue-material/dist/theme/default.css';
 
 import store from './store';
 
-import routes from './routes';
-import notFound from './pages/404';
+// import notFound from './pages/404';
+import app from './App.vue';
+import articleDetail from  './pages/article-detail';
 
 library.add(faTrash, faPen, faPlus, faEye, faArrowLeft);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 Vue.use(VueMaterial);
+Vue.use(VueRouter);
 
 Vue.component(BbsButtonDial.name, BbsButtonDial);
 Vue.component(BbsTable.name, BbsTable);
 Vue.component(BbsModal.name, BbsModal);
 Vue.component(TablePagination.name, TablePagination);
 
-const app = new Vue({
-  el: '#app',
-  data: {
-    currentRoute: window.location.pathname
-  },
-  computed: {
-    ViewComponent () {
-      return routes[this.currentRoute] || notFound;
-    }
-  },
-  store,
-  render (h) { return h(this.ViewComponent) }
+const router = new VueRouter({
+  routes: [
+    { path: '/', component: app },
+    { path: '/article/:id', component: articleDetail }
+  ]
 });
 
-window.addEventListener('popstate', () => {
-  app.currentRoute = window.location.pathname
+new Vue({
+  el: '#app',
+  router,
+  store
 });

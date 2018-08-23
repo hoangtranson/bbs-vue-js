@@ -74,9 +74,6 @@ export default {
     REMOVE_ARTICLE_LIST: (state, id) => {
       state.articleList = state.articleList.filter( item => item.id != id);
     },
-    UPDATE_VIEW_ARTICLE: (state, id) => {
-      localStorage.setItem('viewId', id);
-    },
     SET_SHOW_ERR: (state, text) => {
       state.showErrModal = true;
       state.serverErr = text;
@@ -97,7 +94,6 @@ export default {
       const idList = getters.articleList.map( item => item.id);
       return Math.max(...idList);
     },
-    viewId: state => localStorage.getItem('viewId'),
     isServerErr: state => state.showErrModal,
     serverErrMessage: state => state.serverErr
   }

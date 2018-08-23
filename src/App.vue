@@ -80,7 +80,7 @@ export default {
       this.updateArticleDetailId(viewData.id);
       viewData.viewCount += 1;
       this.$store.dispatch('UPDATE_AN_ARTICLE', viewData).then( res => {
-        window.location.href = 'http://localhost:8081/detail';
+        this.$router.push({ path: `/article/${viewData.id}` });
       })
     },
     closeErrModal: function(){
